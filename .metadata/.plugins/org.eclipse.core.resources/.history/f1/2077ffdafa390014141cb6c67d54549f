@@ -1,0 +1,21 @@
+package mainCode;
+
+public class PerlinNoiseGenerator {
+	
+	//frequency should be doubled with each iteration
+	private int persistance;
+	private int iterationNum;	
+	private int frequency;
+	private int amplitude;
+	
+	public PerlinNoiseGenerator(int persistance) {
+		iterationNum = 0;
+		this.persistance = persistance;
+		this.amplitude = amplitude;
+		frequency = 2^iterationNum;
+		amplitude = persistance^iterationNum;
+	}
+	
+	
+
+}

@@ -1,0 +1,40 @@
+package mainCode;
+
+import java.util.Random;
+
+public class PerlinNoiseGenerator {
+	
+	/*
+	 * Source of the PerlinNoiseGenerator concept:
+	 * http://freespace.virgin.net/hugo.elias/models/m_perlin.htm
+	 * 
+	 * frequency = 2^i
+	 * amplitude = persistence^i
+	 */
+	
+	
+	//frequency should be doubled with each iteration
+	private int persistence;
+	private int iterationNum;	
+	private int frequency;
+	private int amplitude;
+	
+	public PerlinNoiseGenerator(int persistance) {
+		iterationNum = 0;
+		this.persistence = persistance;
+		frequency = 2^iterationNum;
+		amplitude = persistance^iterationNum;
+	}
+	
+	public long seedRandomNumber(long seed) {
+		Random generator = new Random(seed);
+		return generator.nextLong();
+	}
+
+	public long seedRandomMinMax(int min, int max) {
+		Random generator = new Random();
+		return (long) generator.nextInt(((max-min)+1)+min);
+	}
+	
+
+}
