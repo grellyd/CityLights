@@ -9,9 +9,9 @@ Map:
 - Research into the bases of procedurally generated content. (complete)
 - Creation of a grid structure to handle the map elements on a macro scale (in progress)
 - Implementation of the Perlin Noise generator (in progress)
-- -->Inital structures (complete)
+- -->Initial structures (complete)
 - --> Prime number generator (testing required)
-- --> Creating unique vectors for each tile corner, that  will be shared with neighboring tiles (theory complete, code needed)
+- --> Creating unique vectors for each tile corner, which will be shared with neighboring tiles (theory complete, code needed)
 - --> Noise generation on a single tile
 - --> Smoothing of noise function
 - --> Application to the entire grid
@@ -27,12 +27,15 @@ Map:
 Civilisations:
 - Placement bias
 - Growth factors
-- Interation between populations, and subsequent growth/regression.
-- Random enviromental effects (disasters etc.)
+- Interaction between populations, and subsequent growth/regression.
+- Random environmental effects (disasters etc.)
 - Technological effects/change.
-- Culture growth/impacts/overbearance. 
+- Culture growth/impacts/spread. 
 
 History:
 - Recording of world creation in a form similar to a debug log, but more reader friendly. 
 - Recording of civilisation histories
-- --> Grouped by civilisations in chronological order. 
+- --> Grouped by civilisations with events in chronological order. 
+- --> Notes events of significance
+- --> Notes persons of significance
+- --> Notes significant changes within the civilisation
