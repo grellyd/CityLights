@@ -2,6 +2,8 @@ package mainCode;
 
 import java.util.ArrayList;
 
+import exceptions.badLimitException;
+
 public class PrimeTable {
 
 	/*
@@ -10,11 +12,12 @@ public class PrimeTable {
 	 */
 
 	// implement as a singleton, as we only want to generate this once.
-	public static PrimeTable primeTable;
+	private static PrimeTable primeTable;
 	
-	ArrayList<Integer> resTable;
+	private ArrayList<Integer> resTable;
+	private static int limit = 1;
 
-	public static PrimeTable getPrimeTable(int limit) {
+	public static PrimeTable getPrimeTable() {
 		if (primeTable == null) {
 			primeTable = new PrimeTable(limit);
 			return primeTable;
@@ -25,7 +28,9 @@ public class PrimeTable {
 	 * Create a table that is composed of only primes up to limit
 	 * @param limit the max value of the primes
 	 */
-	private PrimeTable(int limit) {
+	private PrimeTable(int limit) { //throws badLimitException{
+		
+		//if (limit < 0) throw badLimitException;
 		int[] table = new int[limit];
 		int primeCounter = 0;
 		// Create a table from 2 to limit, with 0 and 1 filled in.
@@ -63,5 +68,13 @@ public class PrimeTable {
 
 	public ArrayList<Integer> getTable() {
 		return resTable;
+	}
+	
+	public int getLimit() {
+		return limit;
+	}
+	
+	public static void setLimit(int newLimit) {
+		limit = newLimit;
 	}
 }
