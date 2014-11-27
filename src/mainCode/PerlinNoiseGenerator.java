@@ -2,8 +2,10 @@ package mainCode;
 
 import java.util.Random;
 
+import exceptions.BadLimitException;
+
 public class PerlinNoiseGenerator {
-	
+
 	/*
 	 * Source of the PerlinNoiseGenerator concept:
 	 * http://freespace.virgin.net/hugo.elias/models/m_perlin.htm
@@ -11,9 +13,9 @@ public class PerlinNoiseGenerator {
 	 * frequency = 2^i
 	 * amplitude = persistence^i
 	 */
-	
+
 	private static int primeTableLimit = 256;
-	
+
 	//frequency should be doubled with each iteration
 	private int persistence;
 	private int octaves;	
@@ -22,7 +24,7 @@ public class PerlinNoiseGenerator {
 	private int detail;
 	private int[] gradientTable;
 	private PrimeTable primeTable;
-	
+
 	/*
 	 * @param: persistance determines the 'roughness' or randomness of the resulting function
 	 * @param: detail determines the number of iterations that will be made, thus the level of detail. 
@@ -34,10 +36,14 @@ public class PerlinNoiseGenerator {
 		setAmplitude(persistence^octaves);
 		this.detail = detail_;
 		this.gradientTable = new int[256];
-		primeTable = PrimeTable.getPrimeTable(primeTableLimit);
-		
+		try {
+			primeTable = PrimeTable.getPrimeTable(primeTableLimit);
+		} catch (BadLimitException e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getStackTrace());
+		}
 	}
-	
+
 	public Tile generateNoise(Tile tile) {
 		int tl = 0;
 		int tr = 0;
@@ -46,11 +52,11 @@ public class PerlinNoiseGenerator {
 		//noise2D(x, y);
 		return tile;
 	}
-	
+
 	public int noise2D(int x, int y) {
 		return 0;
 	}
-	
+
 	public long seedRandomNumber(long seed) {
 		Random generator = new Random(seed);
 		return generator.nextLong();
@@ -84,7 +90,7 @@ public class PerlinNoiseGenerator {
 	public void setAmplitude(int amplitude) {
 		this.amplitude = amplitude;
 	}
-	
+
 	public int getIterationNum() {
 		return octaves;
 	}
@@ -109,6 +115,6 @@ public class PerlinNoiseGenerator {
 		this.gradientTable = gradientTable;
 	}
 
-	
+
 
 }
