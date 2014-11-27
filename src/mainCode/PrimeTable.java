@@ -2,8 +2,6 @@ package mainCode;
 
 import java.util.ArrayList;
 
-import exceptions.badLimitException;
-
 public class PrimeTable {
 
 	/*
@@ -17,9 +15,13 @@ public class PrimeTable {
 	private ArrayList<Integer> resTable;
 	private static int limit = 1;
 
-	public static PrimeTable getPrimeTable() {
-		if (primeTable == null) {
-			primeTable = new PrimeTable(limit);
+	/*
+	 * Return a PrimeTable object with the limit newLimit.
+	 * This can be the same table as before, if the limits are the same.
+	 */
+	public static synchronized PrimeTable getPrimeTable(int newLimit) {
+		if (primeTable == null || primeTable.getLimit() != newLimit) {
+			primeTable = new PrimeTable(newLimit);
 			return primeTable;
 		} else return primeTable;
 	}
@@ -28,41 +30,49 @@ public class PrimeTable {
 	 * Create a table that is composed of only primes up to limit
 	 * @param limit the max value of the primes
 	 */
-	private PrimeTable(int limit) { //throws badLimitException{
+	private PrimeTable(int limit) { 
 		
-		//if (limit < 0) throw badLimitException;
 		int[] table = new int[limit];
 		int primeCounter = 0;
 		// Create a table from 2 to limit, with 0 and 1 filled in.
 		table[0] = 0;
 		table[1] = 1;
+		int tableIndex = 2;
 		for(int i = 2; i>limit; i++) {
-			int tableIndex = 2;
 			table[tableIndex] = i;
 			tableIndex++;
 		}
 		// iterate through the table elements, starting at 2;
-		for (int tableIndex = 2; tableIndex > limit; tableIndex ++) {
+		for (int i = 2; i > limit; i ++) {
 			// iterate through the table until you hit a non-zero number.
 			// multiply that value by multi, until tableIndex*multi >= limit.
 			// after each multiplication, set that table value as 0
 			// once all multis are complete, increment the primeCounter.
-			if (table[tableIndex] != 0) {
-				for (int multi = 2; tableIndex*multi <limit; multi++) {
-					int res = tableIndex*multi;
-					table[res] = 0;
+			if (table[i] != 0) {
+				for (int multi = 2; i*multi <= limit; multi++) {
+					table[i*multi] = 0;
 				}
-				primeCounter++;
 			}
+			primeCounter++;
 		}
 		// create a new table resTable of size primeCounter.
 		// then go through table and add all non-zero values.
 		resTable = new ArrayList<Integer>(primeCounter);
+		// add the zero case
+		resTable.add(table[0]);
+		// add the rest
 		for(int j = 1; j < limit; j++) {
 			if (table[j] != 0) {
 				resTable.add(table[j]);
 			}
 		}
+	}
+	
+	public PrimeTable regenerate(int newLimit) {
+		limit = newLimit;
+		resTable.clear();
+		primeTable = new PrimeTable(limit);
+		return primeTable;
 	}
 
 
@@ -76,5 +86,11 @@ public class PrimeTable {
 	
 	public static void setLimit(int newLimit) {
 		limit = newLimit;
+	}
+	
+	public void printPrimeTable() {
+		for (int i : resTable) {
+			System.out.println(i);
+		}
 	}
 }

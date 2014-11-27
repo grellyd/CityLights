@@ -12,6 +12,7 @@ public class PerlinNoiseGenerator {
 	 * amplitude = persistence^i
 	 */
 	
+	private static int primeTableLimit = 256;
 	
 	//frequency should be doubled with each iteration
 	private int persistence;
@@ -26,14 +27,14 @@ public class PerlinNoiseGenerator {
 	 * @param: persistance determines the 'roughness' or randomness of the resulting function
 	 * @param: detail determines the number of iterations that will be made, thus the level of detail. 
 	 */
-	public PerlinNoiseGenerator(int persistance, int detail) {		
+	public PerlinNoiseGenerator(int persistence_, int detail_) {		
 		octaves = 0;
-		this.setPersistence(persistance);
+		this.persistence = persistence_;
 		setFrequency(2^octaves);
-		setAmplitude(persistance^octaves);
-		this.detail = detail;
+		setAmplitude(persistence^octaves);
+		this.detail = detail_;
 		this.gradientTable = new int[256];
-		primeTable = PrimeTable.getPrimeTable(50);
+		primeTable = PrimeTable.getPrimeTable(primeTableLimit);
 		
 	}
 	
